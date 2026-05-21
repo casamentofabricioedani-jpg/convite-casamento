@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Convite</title>
+
+<style>
+html, body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:black;
+}
+
+video{
+    width:100vw;
+    height:100vh;
+    object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<video id="video" autoplay muted playsinline>
+    <source src="video.mp4" type="video/mp4">
+</video>
+
+<script>
+
+const video = document.getElementById("video");
+
+video.play();
+
+document.body.addEventListener("click", async () => {
+
+    video.muted = false;
+
+    try {
+        await video.requestFullscreen();
+    } catch(e){}
+
+    video.play();
+
+});
+
+</script>
+
+</body>
+</html>
