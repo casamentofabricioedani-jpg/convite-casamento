@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>Convite</title>
 
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <style>
+
 html, body{
     margin:0;
     padding:0;
@@ -17,16 +24,22 @@ html, body{
 }
 
 video{
+    position:fixed;
+    top:0;
+    left:0;
     width:100vw;
     height:100vh;
     object-fit:cover;
+    background:black;
 }
+
 </style>
+
 </head>
 
 <body>
 
-<video id="video" autoplay muted playsinline>
+<video id="video" autoplay muted playsinline webkit-playsinline>
     <source src="video.mp4" type="video/mp4">
 </video>
 
@@ -34,15 +47,27 @@ video{
 
 const video = document.getElementById("video");
 
-video.play();
+async function startVideo(){
+
+    try{
+        await video.play();
+    }catch(e){}
+
+}
+
+startVideo();
 
 document.body.addEventListener("click", async () => {
 
     video.muted = false;
 
-    try {
-        await video.requestFullscreen();
-    } catch(e){}
+    try{
+        if(video.requestFullscreen){
+            await video.requestFullscreen();
+        }else if(video.webkitEnterFullscreen){
+            video.webkitEnterFullscreen();
+        }
+    }catch(e){}
 
     video.play();
 
